@@ -8,6 +8,6 @@ As the program grows, more functionality can be added, but it will be for the fu
 
 ## Basic entities for the project
 
-- [] screen
-- [] sentence
-- [] keyboard mapping
+- [ ] screen
+- [ ] sentence
+- [ ] keyboard mapping

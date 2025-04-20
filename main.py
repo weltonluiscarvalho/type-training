@@ -6,6 +6,7 @@ class TypeCheckLabel(QLabel):
     def __init__(self, target_text, parent=None):
         super().__init__(parent)
         self.errors = 0
+        self.acertos = 0
         self.target_text = target_text
         self.current_position = 0
         self.correct_color = QColor("#2ecc71")
@@ -48,7 +49,9 @@ class TypeCheckLabel(QLabel):
         expected_char = self.target_text[self.current_position]
         if event.text() == expected_char:
             self.current_position += 1
+            self.acertos += 1
             self.update_dysplay("#f1c40f")
+            self.parentWidget().update_label()
 
             if self.current_position == len(self.target_text):
                 self.setText(f'<span style="color:{self.correct_color.name()}">{self.target_text}</span>')
@@ -58,6 +61,7 @@ class TypeCheckLabel(QLabel):
         else:
             self.errors += 1
             self.update_dysplay("#e74c3c")
+            self.parentWidget().update_label()
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -67,11 +71,17 @@ class MainWindow(QWidget):
         text = "O que fazemos hoje ecoa pela eternidade"
 
         self.type_label = TypeCheckLabel(text)
+        self.hits = QLabel(f"Acertos: {self.type_label.acertos}")
+        self.errors = QLabel(f"Erros: {self.type_label.errors}")
         layout = QVBoxLayout()
         layout.addWidget(self.type_label)
+        layout.addWidget(self.hits)
+        layout.addWidget(self.errors)
         self.setLayout(layout)
 
-
+    def update_label(self):
+        self.hits.setText(f"Acertos: {self.type_label.acertos}")
+        self.errors.setText(f"Erros: {self.type_label.errors}")
 
 if __name__ == "__main__":
     app = QApplication()

@@ -13,6 +13,8 @@ label.setAlignment(Qt.AlignCenter)
 font = QFont()
 font.setPointSize(50)
 label.setFont(font)
+label.setWordWrap(True)
+label.setTextInteractionFlags(Qt.TextSelectableByMouse)
 
 label.show()
 

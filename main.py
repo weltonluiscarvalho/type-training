@@ -73,6 +73,8 @@ class MainWindow(QWidget):
         self.type_label = TypeCheckLabel(text)
         self.hits = QLabel(f"Acertos: {self.type_label.acertos}")
         self.errors = QLabel(f"Erros: {self.type_label.errors}")
+        self.hits.setStyleSheet("font-size: 30px; padding: 20px; border: 1px solid black;") 
+        self.errors.setStyleSheet("font-size: 30px; padding: 20px; border: 1px solid black;") 
         layout = QVBoxLayout()
         layout.addWidget(self.type_label)
         layout.addWidget(self.hits)

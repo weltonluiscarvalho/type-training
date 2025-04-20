@@ -2,12 +2,15 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication, QLabel
 
+class TypeCheckLabel(QLabel):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
 app = QApplication()
 
 texto = "O que fazemos hoje ecoa pela eternidade"
 
-label = QLabel(texto)
+label = TypeCheckLabel(texto)
 label.setAlignment(Qt.AlignCenter)
 
 font = QFont()

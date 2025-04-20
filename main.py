@@ -1,5 +1,5 @@
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QColor, QKeyEvent
 from PySide6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget
 
 class TypeCheckLabel(QLabel):
@@ -31,6 +31,27 @@ class TypeCheckLabel(QLabel):
 
         self.setText(html_text)
 
+    def keyPressEvent(self, event: QKeyEvent):
+        if self.current_position >= len(self.target_text):
+            return
+
+        if event.key() in (Qt.Key.Key_Shift, Qt.Key.Key_Control, Qt.Key.Key_Alt, Qt.Key.Key_CapsLock):
+            return
+
+        if event.key() == Qt.Key.Key_Backspace:
+            if self.current_position > 0:
+                self.current_position -= 1
+                self.update_dysplay()
+            return
+
+        expected_char = self.target_text[self.current_position]
+        if event.text() == expected_char:
+            self.current_position += 1
+            self.update_dysplay()
+
+            if self.current_position == len(self.target_text):
+                self.setText(f'<span style="color:{self.correct_color.name()}">{self.target_text}</span>')
+                self.setStyleSheet("font-size: 50px; padding: 20px; border: 3px solid #2ecc71;")
 
 class MainWindow(QWidget):
     def __init__(self):
